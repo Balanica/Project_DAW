@@ -8,7 +8,7 @@ namespace Project_DAW.Controllers
     {
         private static readonly string[] Summaries = new[]
         {
-        "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching", "ceva de la mine"
+        "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching", "ceva"
     };
 
         private readonly ILogger<WeatherForecastController> _logger;
