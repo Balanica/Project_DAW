@@ -33,9 +33,10 @@ namespace Project_DAW.Data
                 .HasMany(c => c.Orders)
                 .WithOne(o => o.Customer);
 
-            modelBuilder.Entity<Inventory>()
-                .HasOne(i => i.Product)
-                .WithOne(p => p.Inventory);
+            modelBuilder.Entity<Product>()
+                .HasOne(p => p.Inventory)
+                .WithOne(i => i.Product)
+                .HasForeignKey<Inventory>(i => i.ProductId);
             base.OnModelCreating(modelBuilder);
         }
     }

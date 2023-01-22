@@ -11,6 +11,6 @@ namespace Project_DAW.Models
 
         public ICollection<OrderProduct> OrdersProducts { get; set; }
 
-        public Inventory Inventory { get; set; }   
+        public Inventory Inventory { get; set; } 
     }
 }
