@@ -1,6 +1,8 @@
-﻿namespace Project_DAW.Models
+﻿using Project_DAW.Models.Base;
+
+namespace Project_DAW.Models
 {
-    public class OrderProduct
+    public class OrderProduct : BaseEntity
     {
         public Guid OrderId { get; set; }
         public Order Order { get; set; }
