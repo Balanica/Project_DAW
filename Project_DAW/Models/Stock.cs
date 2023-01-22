@@ -2,7 +2,7 @@
 
 namespace Project_DAW.Models
 {
-    public class Inventory : BaseEntity
+    public class Stock : BaseEntity
     {
         public int Quantity { get; set; }
         public Product Product { get; set; }

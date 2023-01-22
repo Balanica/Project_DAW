@@ -9,7 +9,7 @@ namespace Project_DAW.Data
         public DbSet<Order> Orders { get; set; }
         public DbSet<OrderProduct> OrdersProduct { get; set; }
         public DbSet<Product> Products { get; set; }
-        public DbSet<Inventory> Inventories { get; set; }   
+        public DbSet<Stock> Stocks { get; set; }   
 
         public DataBaseContext(DbContextOptions<DataBaseContext> options) : base(options)
         {
@@ -34,9 +34,9 @@ namespace Project_DAW.Data
                 .WithOne(o => o.Customer);
 
             modelBuilder.Entity<Product>()
-                .HasOne(p => p.Inventory)
-                .WithOne(i => i.Product)
-                .HasForeignKey<Inventory>(i => i.ProductId);
+                .HasOne(p => p.Stock)
+                .WithOne(s => s.Product)
+                .HasForeignKey<Stock>(s => s.ProductId);
             base.OnModelCreating(modelBuilder);
         }
     }
