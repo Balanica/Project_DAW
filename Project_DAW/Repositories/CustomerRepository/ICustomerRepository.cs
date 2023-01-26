@@ -5,6 +5,7 @@ namespace Project_DAW.Repositories.CustomerRepository
 {
     public interface ICustomerRepository : IGenericRepository<Customer>
     {
-
+        public Task<List<Customer>> GetCustomerOrders();
+        public Guid GetCustomerId(string firstname, string lastname);
     }
 }

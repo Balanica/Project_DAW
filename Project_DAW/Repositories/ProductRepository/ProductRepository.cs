@@ -10,5 +10,9 @@ namespace Project_DAW.Repositories.ProductRepository
         {
 
         }
+        public Product GetProductByProductName(string name)
+        {
+            return _table.FirstOrDefault(x => x.ProductName == name);
+        }
     }
 }

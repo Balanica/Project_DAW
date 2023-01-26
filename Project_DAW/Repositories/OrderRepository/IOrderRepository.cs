@@ -5,5 +5,6 @@ namespace Project_DAW.Repositories.OrderRepository
 {
     public interface IOrderRepository : IGenericRepository<Order>
     {
+        public Task<List<Order>> GetAllOrdersAndProducts();
     }
 }
