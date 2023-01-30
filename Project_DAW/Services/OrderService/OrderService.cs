@@ -45,6 +45,7 @@ namespace Project_DAW.Services.OrderService
             ord.BillingAddress = order.BillingAdress;
             ord.TotalCost = order.TotalCost;
 
+            await _orderRepository.SaveAsync();
             return ord;
         }
     }

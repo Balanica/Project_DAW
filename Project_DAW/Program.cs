@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage;
 using Project_DAW.Data;
+using Project_DAW.Helpers.Extensions;
 using Project_DAW.Services;
 
 
@@ -13,6 +14,13 @@ builder.Services.AddDbContext<DataBaseContext>(options => options.UseSqlServer(b
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+builder.Services.AddRepositories();
+builder.Services.AddServices();
+
+
+builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+
 var app = builder.Build();
 
 

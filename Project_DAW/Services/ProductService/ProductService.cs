@@ -44,6 +44,7 @@ namespace Project_DAW.Services.ProductService
             p.Brand = p.Brand;
             p.Description = p.Description;
 
+            await _productRepository.SaveAsync();
             return p;
 
         }

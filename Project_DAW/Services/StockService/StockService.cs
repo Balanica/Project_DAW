@@ -38,6 +38,8 @@ namespace Project_DAW.Services.StockService
             if (s == null)
                 return null;
             s.Quantity = stock.Quantity;
+
+            await _stockRepository.SaveAsync();
             return s;
 
         }
