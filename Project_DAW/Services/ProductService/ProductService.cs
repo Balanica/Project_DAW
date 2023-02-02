@@ -34,6 +34,12 @@ namespace Project_DAW.Services.ProductService
         {
             return await _productRepository.GetAll();
         }
+
+        public List<Product> GetByBrand(string brand)
+        {
+            return _productRepository.GetByBrand(brand);
+        }
+
         public async Task<Product> GetById(Guid id)
         {
             return await _productRepository.FindByIdAsync(id);

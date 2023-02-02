@@ -6,5 +6,6 @@ namespace Project_DAW.Repositories.ProductRepository
     public interface IProductRepository : IGenericRepository<Product>
     {
         public Product GetProductByProductName(string name);
+        public  List<Product> GetByBrand(string brand);
     }
 }

@@ -10,6 +10,13 @@ namespace Project_DAW.Repositories.ProductRepository
         {
 
         }
+
+        public List<Product> GetByBrand(string brand)
+        {
+            var products = _table.Where(x => x.Brand == brand).ToList();
+            return products;
+        }
+
         public Product GetProductByProductName(string name)
         {
             return _table.FirstOrDefault(x => x.ProductName == name);

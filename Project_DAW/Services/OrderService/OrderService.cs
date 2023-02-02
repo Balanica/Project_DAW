@@ -9,16 +9,28 @@ namespace Project_DAW.Services.OrderService
     public class OrderService : IOrderService
     {
         public IOrderRepository _orderRepository;
+        public ICustomerRepository _customerRepository;
         public IMapper _mapper;
-        public OrderService(IOrderRepository orderRepository, IMapper mapper)
+        public OrderService(IOrderRepository orderRepository, IMapper mapper, ICustomerRepository customerRepository)
         {
             _orderRepository = orderRepository;
+            _customerRepository = customerRepository;
             _mapper = mapper;
         }
 
         public async Task Create(OrderDTO order)
         {
-            var _order = _mapper.Map<Order>(order);
+            var _customer = _customerRepository.GetCustomerByEmail(order.CustomerEmail);
+            //var _order = _mapper.Map<Order>(order);
+            var _order = new Order
+            {
+                BillingAddress = order.BillingAddress,
+                ShippingAddress = order.ShippingAddress,
+                PaymentMethod = order.PaymentMethod,
+                TotalCost = order.TotalCost,
+                Customer = _customer,
+                CustomerID = _customer.Id
+            };
             await _orderRepository.CreateAsync(_order);
             await _orderRepository.SaveAsync();
         }
@@ -32,6 +44,12 @@ namespace Project_DAW.Services.OrderService
         {
             return await _orderRepository.GetAll();
         }
+
+        public IQueryable<PaymentDTO> GetAllPayment()
+        {
+            return _orderRepository.GetOrdersByPaymentMethod();
+        }
+
         public async Task<Order> GetById(Guid id)
         {
             return await _orderRepository.FindByIdAsync(id);
@@ -44,8 +62,8 @@ namespace Project_DAW.Services.OrderService
                 return null;
 
             ord.PaymentMethod = order.PaymentMethod;
-            ord.ShippingAddress = order.ShippingAdress;
-            ord.BillingAddress = order.BillingAdress;
+            ord.ShippingAddress = order.ShippingAddress;
+            ord.BillingAddress = order.BillingAddress;
             ord.TotalCost = order.TotalCost;
 
             await _orderRepository.SaveAsync();

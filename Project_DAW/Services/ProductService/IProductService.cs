@@ -10,5 +10,6 @@ namespace Project_DAW.Services.ProductService
         Task<List<Product>> GetAll();
         Task<Product> GetById(Guid id);
         Task<Product?> Update(Guid id, ProductDTO product);
+        List<Product> GetByBrand(string brand);
     }
 }

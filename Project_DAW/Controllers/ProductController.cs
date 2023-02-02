@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Project_DAW.Helpers.Attributes;
+using Project_DAW.Models;
 using Project_DAW.Models.DTOs;
 using Project_DAW.Models.Roles;
 using Project_DAW.Services.ProductService;
@@ -38,7 +39,7 @@ namespace Project_DAW.Controllers
         }
 
         [HttpPost("add-product")]
-        [Authorization(Role.Admin)]
+        //[Authorization(Role.Admin)]
         public async Task<IActionResult> AddProduct(ProductDTO product)
         {
             await this._productService.Create(product);
@@ -51,6 +52,13 @@ namespace Project_DAW.Controllers
         {
             await this._productService.Delete(id);
             return Ok("Product has been deleted!");
+        }
+
+        [HttpGet("get-by-brand")]
+        public async Task<IActionResult> GetProductByBrand(string brand)
+        {
+            var products = this._productService.GetByBrand(brand);
+            return Ok(products);
         }
     }
 }

@@ -39,7 +39,7 @@ namespace Project_DAW.Controllers
         }
 
         [HttpPost("add-order")]
-        [Authorization(Role.Admin, Role.Customer)]
+        //[Authorization(Role.Admin, Role.Customer)]
         public async Task<IActionResult> AddProduct(OrderDTO order)
         {
             await this._orderService.Create(order);
@@ -52,6 +52,13 @@ namespace Project_DAW.Controllers
         {
             await this._orderService.Delete(id);
             return Ok("Order has been deleted!");
+        }
+
+        [HttpGet("get-paymentmethods-and-count")]
+        public async Task<IActionResult> GetPaymentMethods()
+        {
+            var payment = this._orderService.GetAllPayment();
+            return Ok(payment);
         }
 
     }

@@ -10,5 +10,6 @@ namespace Project_DAW.Services.OrderService
         Task<List<Order>> GetAll();
         Task<Order> GetById(Guid id);
         Task<Order?> Update(Guid id, OrderDTO order);
+        IQueryable<PaymentDTO> GetAllPayment();
     }
 }
