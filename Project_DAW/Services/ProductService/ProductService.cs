@@ -2,21 +2,26 @@
 using Project_DAW.Models;
 using Project_DAW.Repositories.OrderRepository;
 using Project_DAW.Repositories.ProductRepository;
+using AutoMapper;
+using Project_DAW.Helpers;
 
 namespace Project_DAW.Services.ProductService
 {
     public class ProductService : IProductService
     {
         public IProductRepository _productRepository;
+        public IMapper _mapper;
 
-        public ProductService(IProductRepository productRepository)
+        public ProductService(IProductRepository productRepository, IMapper mapper)
         {
             _productRepository = productRepository;
+            _mapper = mapper;
         }
 
-        public async Task Create(Product product)
+        public async Task Create(ProductDTO product)
         {
-            await _productRepository.CreateAsync(product);
+            var _product = _mapper.Map<Product>(product);
+            await _productRepository.CreateAsync(_product);
             await _productRepository.SaveAsync();
         }
         public async Task Delete(Guid id)

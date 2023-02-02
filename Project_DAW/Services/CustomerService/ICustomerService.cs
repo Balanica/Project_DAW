@@ -14,6 +14,7 @@ namespace Project_DAW.Services.CustomerService
 
         CustomerResponseDTO? Authentificate(CustomerRequestDTO customer);
         /*CustomerRequestDTO GetByIdRequest(Guid id);*/
-        Task CreateAut(CustomerRequestDTO Customer);
+        Task CreateAdm(CustomerRequestDTO Customer);
+        Task CreateCus(CustomerRequestDTO customer);
     }
 }

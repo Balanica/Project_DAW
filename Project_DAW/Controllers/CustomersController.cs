@@ -20,11 +20,6 @@ namespace Project_DAW.Controllers
             _customerService = customerService;
         }
 
-        public static List<Customer> customers = new List<Customer>
-        {
-            new Customer{ FirstName = "Bob", LastName = "c"}
-        };
-
         /*[HttpGet]
 
         public List<Customer> Get()
@@ -39,8 +34,8 @@ namespace Project_DAW.Controllers
             return Ok();
         }
 
-        [HttpPut]
-        [Authorize]
+        [HttpPut("update-customer")]
+        [Authorization(Role.Admin, Role.Customer)]
         public async Task<IActionResult> UpdateCustomer(CustomerDTO _customer, Guid customerId)
         {
             var updcustomer = await this._customerService.Update(customerId, _customer);
@@ -50,18 +45,26 @@ namespace Project_DAW.Controllers
 
         }
 
-        [HttpGet]
+        [HttpGet("getAll-customer")]
         [Authorization (Role.Admin, Role.Customer)]
         public async Task<IActionResult> GetAll()
         {
             return Ok(await this._customerService.GetAll());
         }
 
-        [HttpDelete]
-
+        [HttpDelete("delete-customer")]
+        [Authorization(Role.Admin)]
         public async Task<IActionResult> DeleteCustomer(Guid id)
         {
             await _customerService.Delete(id);
+            return Ok();
+        }
+
+        [HttpPost("create-admin")]
+
+        public async Task<IActionResult> CreateAdmin(CustomerRequestDTO customer)
+        {
+            await _customerService.CreateAdm(customer);
             return Ok();
         }
 
@@ -69,7 +72,7 @@ namespace Project_DAW.Controllers
 
         public async Task<IActionResult> CreateCustomer(CustomerRequestDTO customer)
         {
-            await _customerService.CreateAut(customer);
+            await _customerService.CreateCus(customer);
             return Ok();
         }
 

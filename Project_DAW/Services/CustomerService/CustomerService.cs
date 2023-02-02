@@ -79,11 +79,21 @@ namespace Project_DAW.Services.CustomerService
             throw new NotImplementedException();
         }*/
 
-        public async Task CreateAut(CustomerRequestDTO customer)
+        public async Task CreateAdm(CustomerRequestDTO customer)
         {
             var newCustomer = _mapper.Map<Customer>(customer);
             newCustomer.PasswordHash = BCrypt.Net.BCrypt.HashPassword(customer.Password);
             newCustomer.Role = Role.Admin;
+
+            await _customerRepository.CreateAsync(newCustomer);
+            await _customerRepository.SaveAsync();
+        }
+
+        public async Task CreateCus(CustomerRequestDTO customer)
+        {
+            var newCustomer = _mapper.Map<Customer>(customer);
+            newCustomer.PasswordHash = BCrypt.Net.BCrypt.HashPassword(customer.Password);
+            newCustomer.Role = Role.Customer;
 
             await _customerRepository.CreateAsync(newCustomer);
             await _customerRepository.SaveAsync();

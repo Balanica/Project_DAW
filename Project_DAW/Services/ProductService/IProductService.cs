@@ -5,7 +5,7 @@ namespace Project_DAW.Services.ProductService
 {
     public interface IProductService
     {
-        Task Create(Product product);
+        Task Create(ProductDTO product);
         Task Delete(Guid id);
         Task<List<Product>> GetAll();
         Task<Product> GetById(Guid id);

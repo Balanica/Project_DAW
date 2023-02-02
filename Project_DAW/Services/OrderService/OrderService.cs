@@ -2,21 +2,24 @@
 using Project_DAW.Models;
 using Project_DAW.Repositories.CustomerRepository;
 using Project_DAW.Repositories.OrderRepository;
+using AutoMapper;
 
 namespace Project_DAW.Services.OrderService
 {
     public class OrderService : IOrderService
     {
         public IOrderRepository _orderRepository;
-
-        public OrderService(IOrderRepository orderRepository)
+        public IMapper _mapper;
+        public OrderService(IOrderRepository orderRepository, IMapper mapper)
         {
             _orderRepository = orderRepository;
+            _mapper = mapper;
         }
 
-        public async Task Create(Order order)
+        public async Task Create(OrderDTO order)
         {
-            await _orderRepository.CreateAsync(order);
+            var _order = _mapper.Map<Order>(order);
+            await _orderRepository.CreateAsync(_order);
             await _orderRepository.SaveAsync();
         }
         public async Task Delete(Guid id)

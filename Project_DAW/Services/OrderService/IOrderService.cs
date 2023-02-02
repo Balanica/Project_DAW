@@ -5,7 +5,7 @@ namespace Project_DAW.Services.OrderService
 {
     public interface IOrderService
     {
-        Task Create(Order order);
+        Task Create(OrderDTO order);
         Task Delete(Guid id);
         Task<List<Order>> GetAll();
         Task<Order> GetById(Guid id);
