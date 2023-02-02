@@ -18,6 +18,10 @@ namespace Project_DAW.Helpers
             CreateMap<ProductDTO, Product>();
             CreateMap<StockDTO, Stock>();
             CreateMap<OrderProductDTO, OrderProduct>();
+            CreateMap<Customer, CustomerRequestDTO>();
+            CreateMap<CustomerRequestDTO, Customer>();
+            CreateMap<Customer, CustomerResponseDTO>();
+            CreateMap<CustomerResponseDTO, Customer>();
         }
     }
 }

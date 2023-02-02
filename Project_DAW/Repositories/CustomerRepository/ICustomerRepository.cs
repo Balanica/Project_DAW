@@ -7,5 +7,7 @@ namespace Project_DAW.Repositories.CustomerRepository
     {
         public Task<List<Customer>> GetCustomerOrders();
         public Guid GetCustomerId(string firstname, string lastname);
+
+        public Customer GetCustomerByEmail(string email);
     }
 }

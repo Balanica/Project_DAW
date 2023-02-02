@@ -1,4 +1,5 @@
-﻿using Project_DAW.Repositories.CustomerRepository;
+﻿using Project_DAW.Helpers.JwtToken;
+using Project_DAW.Repositories.CustomerRepository;
 using Project_DAW.Repositories.Inventory;
 using Project_DAW.Repositories.InventoryRepository;
 using Project_DAW.Repositories.OrderProductRepository;
@@ -32,6 +33,12 @@ namespace Project_DAW.Helpers.Extensions
             services.AddTransient<IProductService, ProductService>();
             services.AddTransient<IStockService, StockService>();
             services.AddTransient<IOrderProductService, OrderProductService>();
+            return services;
+        }
+
+        public static IServiceCollection AddUtils(this IServiceCollection services)
+        {
+            services.AddScoped<IJwtUtils, JwtUtils.JwtUtils>();
             return services;
         }
     }

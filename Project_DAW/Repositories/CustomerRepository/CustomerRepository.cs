@@ -25,5 +25,10 @@ namespace Project_DAW.Repositories.CustomerRepository
             return customer == null ? Guid.Empty : customer.Id;
         }
 
+        public Customer GetCustomerByEmail(string email)
+        {
+            return _table.FirstOrDefault(x => x.Email == email);
+        }
+
     }
 }
