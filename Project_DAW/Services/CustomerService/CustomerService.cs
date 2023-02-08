@@ -1,53 +1,53 @@
 ﻿using AutoMapper;
 using Project_DAW.Helpers.JwtToken;
-using Project_DAW.Helpers.JwtUtils;
 using Project_DAW.Models;
 using Project_DAW.Models.DTOs;
 using Project_DAW.Models.Roles;
-using Project_DAW.Repositories.CustomerRepository;
-using System.Runtime.InteropServices;
-using System.Threading.Tasks;
+using Project_DAW.Repositories.UnitOfWork;
 
 namespace Project_DAW.Services.CustomerService
 {
     public class CustomerService : ICustomerService
     {
-        public ICustomerRepository _customerRepository;
+        //public ICustomerRepository _customerRepository;
         public IMapper _mapper;
         public IJwtUtils _jwtUtils;
+        public IUnitOfWork _unitOfWork;
 
-        public CustomerService(ICustomerRepository customerRepository, IMapper mapper, IJwtUtils jwtUtils)
+        public CustomerService(IMapper mapper, IJwtUtils jwtUtils, IUnitOfWork unitOfWork)
         {
-            _customerRepository = customerRepository;
+            //_customerRepository = customerRepository;
             _mapper = mapper;
             _jwtUtils = jwtUtils;
+            _unitOfWork = unitOfWork;
+
         }
 
         public async Task Create(CustomerDTO newcustomer)
         {
             var customer = _mapper.Map<Customer>(newcustomer);
-            await _customerRepository.CreateAsync(customer);
-            await _customerRepository.SaveAsync();
+            await _unitOfWork.customerRepository.CreateAsync(customer);
+            await _unitOfWork.customerRepository.SaveAsync();
         }
 
         public async Task Delete(Guid id)
         {
-            var customer = await _customerRepository.FindByIdAsync(id);
-            _customerRepository.Delete(customer);
-            await _customerRepository.SaveAsync();
+            var customer = await _unitOfWork.customerRepository.FindByIdAsync(id);
+            _unitOfWork.customerRepository.Delete(customer);
+            await _unitOfWork.customerRepository.SaveAsync();
         }
         public Task<List<Customer>> GetAll()
         {
-            return _customerRepository.GetAll();
+            return _unitOfWork.customerRepository.GetAll();
         }
         public async Task<Customer> GetById(Guid id)
         {
-            return await _customerRepository.FindByIdAsync(id);
+            return await _unitOfWork.customerRepository.FindByIdAsync(id);
         }
 
         public async Task<Customer?> Update(Guid id, CustomerDTO customer)
         {
-            var c = await _customerRepository.FindByIdAsync(id);
+            var c = await _unitOfWork.customerRepository.FindByIdAsync(id);
 
             if (c == null)
                 return null;
@@ -58,15 +58,15 @@ namespace Project_DAW.Services.CustomerService
             c.Email = customer.Email;
             c.Address = customer.Address;
 
-            await _customerRepository.SaveAsync();
-            
+            await _unitOfWork.customerRepository.SaveAsync();
+
             return c;
 
         }
         public CustomerResponseDTO? Authentificate(CustomerRequestDTO customer)
         {
-            var _customer = _customerRepository.GetCustomerByEmail(customer.Email);
-            if(_customer == null || !BCrypt.Net.BCrypt.Verify(customer.Password, _customer.PasswordHash))
+            var _customer = _unitOfWork.customerRepository.GetCustomerByEmail(customer.Email);
+            if (_customer == null || !BCrypt.Net.BCrypt.Verify(customer.Password, _customer.PasswordHash))
             {
                 return null;
             }
@@ -85,8 +85,8 @@ namespace Project_DAW.Services.CustomerService
             newCustomer.PasswordHash = BCrypt.Net.BCrypt.HashPassword(customer.Password);
             newCustomer.Role = Role.Admin;
 
-            await _customerRepository.CreateAsync(newCustomer);
-            await _customerRepository.SaveAsync();
+            await _unitOfWork.customerRepository.CreateAsync(newCustomer);
+            await _unitOfWork.customerRepository.SaveAsync();
         }
 
         public async Task CreateCus(CustomerRequestDTO customer)
@@ -95,8 +95,8 @@ namespace Project_DAW.Services.CustomerService
             newCustomer.PasswordHash = BCrypt.Net.BCrypt.HashPassword(customer.Password);
             newCustomer.Role = Role.Customer;
 
-            await _customerRepository.CreateAsync(newCustomer);
-            await _customerRepository.SaveAsync();
+            await _unitOfWork.customerRepository.CreateAsync(newCustomer);
+            await _unitOfWork.customerRepository.SaveAsync();
         }
 
 

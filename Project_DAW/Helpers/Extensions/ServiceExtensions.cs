@@ -5,6 +5,7 @@ using Project_DAW.Repositories.InventoryRepository;
 using Project_DAW.Repositories.OrderProductRepository;
 using Project_DAW.Repositories.OrderRepository;
 using Project_DAW.Repositories.ProductRepository;
+using Project_DAW.Repositories.UnitOfWork;
 using Project_DAW.Services.CustomerService;
 using Project_DAW.Services.OrderProductService;
 using Project_DAW.Services.OrderService;
@@ -23,6 +24,7 @@ namespace Project_DAW.Helpers.Extensions
             services.AddTransient<IProductRepository, ProductRepository>();
             services.AddTransient<IStockRepository, StockRepository>();
             services.AddTransient<IOrderProductRepository, OrderProductRepository>();
+            services.AddTransient<IUnitOfWork, UnitOfWork>();
             return services;
         }
 
