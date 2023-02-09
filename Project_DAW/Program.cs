@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage;
 using Microsoft.IdentityModel.Tokens;
@@ -7,6 +8,7 @@ using Project_DAW.Data;
 using Project_DAW.Helpers;
 using Project_DAW.Helpers.Extensions;
 using Project_DAW.Helpers.Middleware;
+using Project_DAW.Hubs;
 using Project_DAW.Services;
 using Swashbuckle.AspNetCore.Filters;
 using System.Text;
@@ -24,6 +26,7 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddRepositories();
 builder.Services.AddServices();
 builder.Services.AddUtils();
+builder.Services.AddSignalR();
 builder.Services.Configure<AppSettings>(builder.Configuration.GetSection("AppSettings"));
 
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
@@ -40,6 +43,7 @@ builder.Services.AddSwaggerGen(options =>
     });
 
     options.OperationFilter<SecurityRequirementsOperationFilter>();
+    options.AddSignalRSwaggerGen();
 });
 
 
